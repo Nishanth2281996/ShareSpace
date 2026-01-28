@@ -1,6 +1,6 @@
 import "../global.css";
-import LoginScreen from "./auth/login_screen";
+import RegisterScreen from "./auth/register_screen";
 
 export default function Index() {
-  return <LoginScreen />;
+  return <RegisterScreen />;
 }
