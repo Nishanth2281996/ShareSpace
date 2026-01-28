@@ -1,6 +1,6 @@
 import "../global.css";
-import RoleSelection from "./auth/role_selection";
+import LoginScreen from "./auth/login_screen";
 
 export default function Index() {
-  return <RoleSelection />;
+  return <LoginScreen />;
 }
