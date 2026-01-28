@@ -1,6 +1,6 @@
 import "../global.css";
-import RegisterScreen from "./auth/register_screen";
+import ResetPassword from "./auth/reset_password";
 
 export default function Index() {
-  return <RegisterScreen />;
+  return <ResetPassword />;
 }
