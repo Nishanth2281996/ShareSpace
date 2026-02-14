@@ -7,6 +7,7 @@ import TextField from "../../src/components/ui/textField";
 
 const LoginScreen = () => {
   const router = useRouter();
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 bg-white">
