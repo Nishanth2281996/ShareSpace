@@ -45,7 +45,7 @@ const Roleselection = () => {
             className="w-[252px] h-[48px] rounded-full bg-[#2DB0EF] items-center justify-center"
             onPress={() => {
               if (!selectedRole) return;
-              router.push("auth/login_screen?role=${selectedRole}");
+              router.push(`auth/login_screen?role=${selectedRole}`);
             }}
           >
             <View className="flex-row items-center" style={{ gap: 10 }}>
