@@ -1,12 +1,46 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../../src/components/ui/primaryButton";
 import TextField from "../../src/components/ui/textField";
+import { loginUser } from "../../src/services/auth/auth.service";
 
 const LoginScreen = () => {
   const router = useRouter();
+
+  // Store input values
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Store UI states
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleLogin = async () => {
+    // Clear old error
+    setErrorMsg("");
+
+    // Simple validation
+    if (!email.trim() || !password.trim()) {
+      setErrorMsg("Please enter your email and password.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await loginUser({
+        email: email.trim(),
+        password,
+      });
+    } catch (error) {
+      setErrorMsg(error.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -28,6 +62,8 @@ const LoginScreen = () => {
               placeholder="Email or Phone"
               keyboardType="default"
               secureTextEntry={false}
+              value={email}
+              onChangeText={setEmail}
             />
             <TextField
               icon={
@@ -40,12 +76,21 @@ const LoginScreen = () => {
               placeholder="Password"
               keyboardType="default"
               secureTextEntry={true}
+              value={password}
+              onChangeText={setPassword}
             />
           </View>
 
+          {/* Error message */}
+          {errorMsg ? (
+            <Text className="mt-4 text-red-500 text-[14px] px-1">
+              {errorMsg}
+            </Text>
+          ) : null}
+
           {/*Login Button*/}
           <View className="mt-10">
-            <PrimaryButton label="Login" onPress={() => {}} />
+            <PrimaryButton label="Login" onPress={handleLogin} />
           </View>
 
           {/* Divide */}
