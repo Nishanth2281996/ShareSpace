@@ -3,8 +3,10 @@ import { StyleSheet, TextInput, View } from "react-native";
 const TextField = ({
   icon = null,
   placeholder,
-  secureTextEntry = False,
+  secureTextEntry = false,
   keyboardType = "default",
+  value,
+  onChangeText,
 }) => {
   return (
     <View
@@ -19,6 +21,8 @@ const TextField = ({
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
         className="flex-1 ml-3 text-[16px] text-black"
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );

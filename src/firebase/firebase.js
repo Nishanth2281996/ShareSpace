@@ -36,6 +36,3 @@ export const auth = initializeAuth(app, {
 
 // Create Firestore service from the app
 export const db = getFirestore(app);
-
-// Temporary test log
-console.log("[firebase] Firebase initialized successfully");
