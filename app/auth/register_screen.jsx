@@ -50,6 +50,9 @@ const RegisterScreen = () => {
     if (!email.trim()) {
       setEmailError("Please enter email");
       isValid = false;
+    } else if (!email.includes("@")) {
+      setEmailError("Invalid email format");
+      isValid = false;
     }
 
     // Password check
