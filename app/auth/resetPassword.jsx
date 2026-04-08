@@ -79,7 +79,7 @@ const ResetPassword = () => {
 
         {/*Back to Login */}
         <View className="mt-10 items-center">
-          <Pressable onPress={() => router.push("/auth/login_screen")}>
+          <Pressable onPress={() => router.push("/auth/loginScreen")}>
             <Text className="text-[16px] text-black">Back to Login</Text>
           </Pressable>
         </View>

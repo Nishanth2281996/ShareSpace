@@ -1,12 +1,12 @@
 // Import Firebase Auth functions
 import {
-    createUserWithEmailAndPassword,
-    sendPasswordResetEmail,
-    signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 // Import Firestore functions
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 // Import shared Firebase services
 import { auth, db } from "../../firebase/firebase";
@@ -62,6 +62,23 @@ export const loginUser = async ({ email, password }) => {
 
   // Return logged in user
   return userCredential.user;
+};
+
+// Read user profile from Firestore
+export const getUserProfile = async (uid) => {
+  // Reference to user document
+  const userRef = doc(db, "users", uid);
+
+  // Read document
+  const userSnap = await getDoc(userRef);
+
+  // Check if document exists
+  if (!userSnap.exists()) {
+    throw new Error("User profile not found.");
+  }
+
+  // Return profile data
+  return userSnap.data();
 };
 
 // Send password reset email

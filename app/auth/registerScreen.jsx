@@ -103,7 +103,7 @@ const RegisterScreen = () => {
       });
 
       // Go to login after success
-      router.replace("/auth/login_screen");
+      router.replace("/auth/loginScreen");
     } catch (error) {
       // Show Firebase error below the form
       setSubmitError(error.message || "Registration failed");
@@ -267,7 +267,7 @@ const RegisterScreen = () => {
           </Text>
           <Pressable
             onPress={() => {
-              router.push("/auth/login_screen");
+              router.push("/auth/loginScreen");
             }}
           >
             <Text className="text-[16px] text-[#2DB0EF] font-medium">

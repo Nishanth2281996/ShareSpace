@@ -5,7 +5,10 @@ import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../../src/components/ui/primaryButton";
 import TextField from "../../src/components/ui/textField";
-import { loginUser } from "../../src/services/auth/auth.service";
+import {
+  getUserProfile,
+  loginUser,
+} from "../../src/services/auth/auth.service";
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -31,10 +34,22 @@ const LoginScreen = () => {
     try {
       setLoading(true);
 
-      await loginUser({
+      const user = await loginUser({
         email: email.trim(),
         password,
       });
+
+      // get profile from Firestore
+      const profile = await getUserProfile(user.uid);
+
+      // redirect by role
+      if (profile.role === "owner") {
+        router.push("/owner/dashboard");
+      } else if (profile.role === "seeker") {
+        router.push("/seeker/home");
+      } else {
+        setErrorMsg("Invalid user role.");
+      }
     } catch (error) {
       setErrorMsg(error.message || "Login failed. Please try again.");
     } finally {
@@ -104,14 +119,14 @@ const LoginScreen = () => {
           <View className="mt-8 flex-row justify-between px-2">
             <Pressable
               onPress={() => {
-                router.push("auth/register_screen");
+                router.push("/auth/registerScreen");
               }}
             >
               <Text className="text-[16px] text-black">Register</Text>
             </Pressable>
             <Pressable
               onPress={() => {
-                router.push("auth/reset_password");
+                router.push("/auth/resetPassword");
               }}
             >
               <Text className="text-[16px] text-black">Forgot Password?</Text>
