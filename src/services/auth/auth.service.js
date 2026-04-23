@@ -14,6 +14,8 @@ import { auth, db } from "../../firebase/firebase";
 // Allowed app roles
 const ALLOWED_ROLES = ["seeker", "owner"];
 
+import { signOut } from "firebase/auth";
+
 // Check role before saving
 const validateRole = (role) => {
   if (!ALLOWED_ROLES.includes(role)) {
@@ -88,4 +90,14 @@ export const sendResetPassword = async (email) => {
 
   // Return simple success value
   return true;
+};
+
+// Logout user
+export const logoutUser = async () => {
+  try {
+    await signOut(auth); // Firebase sign out
+  } catch (error) {
+    console.log("Logout error:", error.message);
+    throw error;
+  }
 };
